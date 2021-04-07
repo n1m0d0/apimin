@@ -2,44 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Institution;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class ApiUserController extends Controller
+class ApiInstitutionController extends Controller
 {
 
     public function index()
     {
-        $users = User::where('state', 'ACTIVO')->get();
+        $institutions = Institution::where('state', 'ACTIVO')->get();
        
         return response()->json([
-            'data' => $users
+            'data' => $institutions
         ], 200);
     }
 
     public function store(Request $request)
     {
-        $user = new User;
-        $user->institution_id = $request->institution_id;        
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password); 
-        $user->state = 'ACTIVO';
-        $user->save();
+        $institution = new Institution;
+        $institution->name = $request->name;
+        $institution->state = 'ACTIVO';
+        $institution->save();
 
         return response()->json([
-            'data' => $user
+            'data' => $institution
         ], 201);
     }
 
     public function show($id)
     {
-        $user = User::find($id);
+        $institution = Institution::find($id);
         
-        if($user) {
+        if($institution) {
             return response()->json([
-                'data' => $user
+                'data' => $institution
             ], 200);
         } else {
             return response()->json([
@@ -50,15 +46,13 @@ class ApiUserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        if($user) {
-            $user->institution_id = $request->institution_id;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->save();
+        $institution = Institution::find($id);
+        if($institution) {
+            $institution->name = $request->name;
+            $institution->save();
 
             return response()->json([
-                'data' => $user
+                'data' => $institution
             ], 201);
         } else {
             return response()->json([
@@ -69,13 +63,13 @@ class ApiUserController extends Controller
 
     public function destroy($id)
     {
-        $user = User::find($id);
-        if($user) {
-            $user->state = 'INACTIVO';
-            $user->save();
+        $institution = Institution::find($id);
+        if($institution) {
+            $institution->state = 'INACTIVO';
+            $institution->save();
 
             return response()->json([
-                'data' => $user
+                'data' => $institution
             ], 201);
         } else {
             return response()->json([

@@ -2,44 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class ApiUserController extends Controller
+class ApiProfileController extends Controller
 {
-
+    
     public function index()
     {
-        $users = User::where('state', 'ACTIVO')->get();
+        $profiles = Profile::where('state', 'ACTIVO')->get();
        
         return response()->json([
-            'data' => $users
+            'data' => $profiles
         ], 200);
     }
 
     public function store(Request $request)
     {
-        $user = new User;
-        $user->institution_id = $request->institution_id;        
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password); 
-        $user->state = 'ACTIVO';
-        $user->save();
+        $profile = new Profile;
+        $profile->name = $request->name;
+        $profile->state = 'ACTIVO';
+        $profile->save();
 
         return response()->json([
-            'data' => $user
+            'data' => $profile
         ], 201);
     }
 
     public function show($id)
     {
-        $user = User::find($id);
+        $profile = Profile::find($id);
         
-        if($user) {
+        if($profile) {
             return response()->json([
-                'data' => $user
+                'data' => $profile
             ], 200);
         } else {
             return response()->json([
@@ -50,15 +46,13 @@ class ApiUserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        if($user) {
-            $user->institution_id = $request->institution_id;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->save();
+        $profile = Profile::find($id);
+        if($profile) {
+            $profile->name = $request->name;
+            $profile->save();
 
             return response()->json([
-                'data' => $user
+                'data' => $profile
             ], 201);
         } else {
             return response()->json([
@@ -69,13 +63,13 @@ class ApiUserController extends Controller
 
     public function destroy($id)
     {
-        $user = User::find($id);
-        if($user) {
-            $user->state = 'INACTIVO';
-            $user->save();
+        $profile = Profile::find($id);
+        if($profile) {
+            $profile->state = 'INACTIVO';
+            $profile->save();
 
             return response()->json([
-                'data' => $user
+                'data' => $profile
             ], 201);
         } else {
             return response()->json([
