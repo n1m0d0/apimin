@@ -38,11 +38,11 @@ Route::post('login', [ApiAuthController::class, "login"]);
 Route::get('logout', [ApiAuthController::class, "logout"])->middleware('auth:api');
 Route::get('getUser', [ApiAuthController::class, "getUSer"])->middleware('auth:api');
 
-Route::apiResource('users', ApiUserController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:1,1']);
-Route::apiResource('profiles', ApiProfileController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:1,1']);
-Route::apiResource('institutions', ApiInstitutionController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:1,1']);
-Route::apiResource('systems', ApiSystemController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:1,1']);
-Route::apiResource('permissions', ApiPermissionController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:1,1']);
+Route::apiResource('users', ApiUserController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:8,5']);
+Route::apiResource('profiles', ApiProfileController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:8,5']);
+Route::apiResource('institutions', ApiInstitutionController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:8,5']);
+Route::apiResource('systems', ApiSystemController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:8,5']);
+Route::apiResource('permissions', ApiPermissionController::class)->middleware(['auth:api', 'checkInstitutions:1', 'checkPermissions:8,5']);
 
 Route::any('/', function(){
     return response()->json([
@@ -80,7 +80,7 @@ Route::name('seguimiento.ejecucion_mes_sector')->get('sisin/ejecucionMesSectorSi
 Route::name('seguimiento.sisin')->get('sisin/ejecucionMesSisin/{gestion}/{mes}', [SisinController::class, 'ejecucionMesSisin']);
 Route::name('seguimiento.monto_original')->get('sisin/montoOriginal/{codInversion}', [SisinController::class, 'montoOriginal']);
 Route::name('seguimiento.fecha_original')->get('sisin/fechaOriginal/{codInversion}/{cambioFecha}/{cambioFechaCosto}', [SisinController::class, 'fechaOriginal']);
-Route::name('seguimiento.monto_ajustado')->get('sisin/montoAjustado/{codInversion}/{cambioCosto}/{cambioFechaCosto}', [SisinController::class, '@montoAjustado']);
+Route::name('seguimiento.monto_ajustado')->get('sisin/montoAjustado/{codInversion}/{cambioCosto}/{cambioFechaCosto}', [SisinController::class, 'montoAjustado']);
 Route::name('seguimiento.nro_modificacion')->get('sisin/nroModificacion/{codInversion}/{cambio}/{cambioFechaCosto}', [SisinController::class, 'nroModificacion']);
 Route::name('seguimiento.ejecucion_mes_sector')->get('sisin/ejecucionMesSectorSisin/{gestion}/{mes}/{sector}', [SisinController::class, 'ejecucionMesSectorSisin']);
 

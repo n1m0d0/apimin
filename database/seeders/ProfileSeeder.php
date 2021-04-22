@@ -33,5 +33,10 @@ class ProfileSeeder extends Seeder
             'name' => 'DELETE',
             'state' => 'ACTIVO'
         ]);
+
+        Profile::create([
+            'name' => 'ADMIN',
+            'state' => 'ACTIVO'
+        ]);
     }
 }

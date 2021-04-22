@@ -217,5 +217,13 @@ class PermissionSeeder extends Seeder
             'profile_id' => '4',
             'state' => 'ACTIVO'
         ]);
+
+        // GESTIONDEUSUARIOS
+        Permission::create([
+            'user_id' => '1',
+            'system_id' => '8',
+            'profile_id' => '5',
+            'state' => 'ACTIVO'
+        ]);
     }
 }

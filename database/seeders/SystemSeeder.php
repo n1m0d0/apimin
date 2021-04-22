@@ -48,5 +48,10 @@ class SystemSeeder extends Seeder
             'name' => 'SISPRO',
             'state' => 'ACTIVO'
         ]);
+
+        System::create([
+            'name' => 'GESTIONDEUSUARIOS',
+            'state' => 'ACTIVO'
+        ]);
     }
 }
